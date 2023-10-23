@@ -9,5 +9,8 @@
         <module name="MongoDBStart" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Integration_Architectures" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>
