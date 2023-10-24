@@ -32,7 +32,7 @@ public class ManagePersonalImpl implements ManagePersonal {
         salesmen_collection.insertOne(record.toDocument());
     }
 
-    public void addPerformanceReord(EvaluationRecord record , int sid ){
+    public void addPerformanceRecord(EvaluationRecord record , int sid ){
         Document performance_salesman = performance_collection.find(Filters.eq("salesman", sid)).first();
         if(performance_salesman == null){
             Document salesman_entry = new Document();
