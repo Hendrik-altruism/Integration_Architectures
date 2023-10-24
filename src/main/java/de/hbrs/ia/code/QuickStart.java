@@ -11,6 +11,7 @@ import com.mongodb.client.MongoDatabase;
 
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Level;
 
 
 public class QuickStart {
@@ -24,6 +25,7 @@ public class QuickStart {
     public static void main( String[] args ) {
 
         MongoClient mongoClient = new MongoClient("localhost", 27017);
+        java.util.logging.Logger.getLogger("org.mongodb.driver").setLevel(Level.SEVERE);
         MongoDatabase database = mongoClient.getDatabase("Salesmen_Performances");
         ManagePersonalImpl control = new ManagePersonalImpl(database);
         Scanner scan = new Scanner(System.in);
@@ -56,6 +58,7 @@ public class QuickStart {
 
                 default:
                     System.out.println("falsche Eingabe");
+                    break;
 
                 case "createSalesMan":
                     System.out.println("geben sie nach einander die Parameter ein\n");;
@@ -65,6 +68,7 @@ public class QuickStart {
                     lastname = scan.nextLine();
                     control.createSalesMan(new SalesMan(firstname, lastname, userid++));
                     System.out.println("Nutzer erstellt");
+                    break;
 
                 case "addPerformanceRecord":
                     System.out.println("geben sie nach einander die Parameter ein\n");;
@@ -74,12 +78,14 @@ public class QuickStart {
                     sid = scan.nextInt();
                     control.addPerformanceRecord(new EvaluationRecord(performanceid++, performance_value), sid);
                     System.out.println("Performance Record hinzugefügt");
+                    break;
 
                 case "readSalesMan":
                     System.out.println("geben sie nach einander die Parameter ein\n");;
                     System.out.println("Salesman ID: \n");
                     sid = scan.nextInt();
                     System.out.println(control.readSalesMan(sid).toDocument());
+                    break;
 
                 case "querySalesMan":
                     System.out.println("geben sie nach einander die Parameter ein\n");;
@@ -89,12 +95,14 @@ public class QuickStart {
                     lastname = scan.nextLine();
                     List<SalesMan> sales = control.querySalesMan(firstname, lastname);
                     sales.forEach(salesMan -> System.out.println(salesMan.toDocument()+"\n"));
+                    break;
 
                 case "readEvaluationRecords":
                     System.out.println("geben sie nach einander die Parameter ein\n");;
                     System.out.println("Salesman ID: \n");
                     sid = scan.nextInt();
                     System.out.println(control.readEvaluationRecords(sid).toDocument());
+                    break;
 
                 case "updateSalesMan":
                     System.out.println("geben sie nach einander die Parameter ein\n");;
@@ -106,6 +114,7 @@ public class QuickStart {
                     lastname = scan.nextLine();
                     control.updateSalesman(sid, firstname, lastname);
                     System.out.println("Salesman updated");
+                    break;
 
                 case "deleteSalesMan":
                     System.out.println("geben sie nach einander die Parameter ein\n");;
@@ -113,6 +122,7 @@ public class QuickStart {
                     sid = scan.nextInt();
                     control.deleteSalesman(sid);
                     System.out.println("Salesman gelöscht");
+                    break;
 
                 case "deletePerformances":
                     System.out.println("geben sie nach einander die Parameter ein\n");;
@@ -120,6 +130,7 @@ public class QuickStart {
                     sid = scan.nextInt();
                     control.deletePerformances(sid);
                     System.out.println("Performances von Salesman: "+ sid +" gelöscht");
+                    break;
             }
         } while (!sentence.equals("end"));
         System.out.println("Vielen Dank für die Nutzung des Systems");
